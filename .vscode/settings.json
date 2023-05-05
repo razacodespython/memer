@@ -1,0 +1,15 @@
+{
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "eslint.codeActionsOnSave.mode": "problems",
+      "eslint.codeActionsOnSave.quiet": true,
+      "eslint.codeActionsOnSave.rules": ["eslint:all"]
+  }
+  

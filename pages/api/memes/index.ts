@@ -4,9 +4,15 @@ import axios from "axios";
 
 // refactor this
 // add all the fields
+//
 type Data = {
+  id: string;
   name: string;
-  // url: string;
+  url: string;
+  width: number;
+  height: number;
+  box_count: number;
+  captions: number;
 };
 
 export default async function handler(
@@ -16,7 +22,7 @@ export default async function handler(
   // refactor to axios
   console.log("HI");
   const resp = await axios.get(`https://api.imgflip.com/get_memes`);
-  console.log(resp.data, "Hi Axios");
+  //console.log(resp.data, "Hi Axios");
   res.status(200).json(resp.data);
 }
 

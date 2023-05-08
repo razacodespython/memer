@@ -7,15 +7,28 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
   const [data, setData] = useState(null);
-
+  const [random, setRandom] = useState(0);
+  const [firstKeyword, setFirstKeyword] = useState("");
+  const [secondKeyword, setSecondKeyword] = useState("");
+  const fontUrl =
+    "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
   const fetchData = async () => {
     //goes to folder
     const response = await fetch("/api/memes");
     const json = await response.json();
     console.log(json); // 100 memes in this json
     setData(json);
+    const randomNumber = Math.floor(Math.random() * 100);
+    setRandom(randomNumber);
   };
   // fetchData();
+
+  function changeFirstKw(event: React.ChangeEvent<HTMLInputElement>) {
+    setFirstKeyword(event.target.value);
+  }
+  function changeSecondKw(event: React.ChangeEvent<HTMLInputElement>) {
+    setSecondKeyword(event.target.value);
+  }
 
   return (
     <>
@@ -47,10 +60,18 @@ const Home: NextPage = () => {
           <GridItem rowSpan={1} bg="white" pt="6">
             <Flex justifyContent="space-between" alignItems="center" p="2">
               <Box w="100%" p="2">
-                <Input placeholder="First keyword" />
+                <Input
+                  placeholder="First keyword"
+                  value={firstKeyword}
+                  onChange={changeFirstKw}
+                />
               </Box>
               <Box w="100%" p="2">
-                <Input placeholder="Second keyword" />
+                <Input
+                  placeholder="Second keyword"
+                  value={secondKeyword}
+                  onChange={changeSecondKw}
+                />
               </Box>
             </Flex>
           </GridItem>
@@ -66,16 +87,27 @@ const Home: NextPage = () => {
               position="relative"
               p="2"
             >
-              <Image src="/logo.jpg" alt="logo" width={500} height={500} />
+              {/* //"/logo.jpg" */}
+              <Image
+                src={data?.data?.memes[random].url}
+                alt="logo"
+                width={500}
+                height={50}
+              />
               <h1
                 style={{
                   position: "absolute",
-                  top: "10%",
+                  top: "5%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
+                  fontWeight: 4000,
+                  fontStyle: "bold",
+                  color: "white",
+                  fontSize: "65px",
+                  WebkitTextStroke: "2px black",
                 }}
               >
-                top text
+                {firstKeyword}
               </h1>
               <h1
                 style={{
@@ -83,9 +115,15 @@ const Home: NextPage = () => {
                   top: "90%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
+                  fontWeight: 4000,
+                  fontStyle: "bold",
+                  color: "white",
+                  fontSize: "65px",
+                  WebkitTextStroke: "2px black",
                 }}
+                // clamp(1rem, 5vw, 2.5rem)
               >
-                bottom text
+                {secondKeyword}
               </h1>
             </Flex>
           </GridItem>

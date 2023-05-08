@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 //https://imgflip.com/api
 //https://api.imgflip.com/get_memes
-
+//check
 const Home: NextPage = () => {
   const [data, setData] = useState(null);
   const [random, setRandom] = useState(0);

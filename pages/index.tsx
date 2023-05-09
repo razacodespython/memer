@@ -2,11 +2,13 @@ import { Flex, Grid, GridItem, Box, Button, Input } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import type { Memes, Resp } from "./api/memes";
 //https://imgflip.com/api
 //https://api.imgflip.com/get_memes
 //check
 const Home: NextPage = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<Memes[] | null>(null);
   const [random, setRandom] = useState(0);
   const [firstKeyword, setFirstKeyword] = useState("");
   const [secondKeyword, setSecondKeyword] = useState("");
@@ -14,10 +16,10 @@ const Home: NextPage = () => {
     "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
   const fetchData = async () => {
     //goes to folder
-    const response = await fetch("/api/memes");
-    const json = await response.json();
-    console.log(json); // 100 memes in this json
-    setData(json);
+    const response: AxiosResponse<Resp> = await axios.get("/api/memes");
+    // const json: Response = await response.json();
+    console.log(response.data.data.memes); // 100 memes in this json
+    setData(response.data.data.memes);
     const randomNumber = Math.floor(Math.random() * 100);
     setRandom(randomNumber);
   };
@@ -88,12 +90,14 @@ const Home: NextPage = () => {
               p="2"
             >
               {/* //"/logo.jpg" */}
-              <Image
-                src={data?.data?.memes[random].url}
-                alt="logo"
-                width={500}
-                height={50}
-              />
+              {data && (
+                <Image
+                  src={data[random].url}
+                  alt="logo"
+                  width={500}
+                  height={50}
+                />
+              )}
               <h1
                 style={{
                   position: "absolute",

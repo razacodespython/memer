@@ -5,7 +5,10 @@ import axios from "axios";
 // refactor this
 // add all the fields
 //
-type Data = {
+// type Memes = {
+//   data: Data[];
+// };
+export type Memes = {
   id: string;
   name: string;
   url: string;
@@ -15,9 +18,15 @@ type Data = {
   captions: number;
 };
 
+export type Resp = {
+  data: {
+    memes: Memes[];
+  };
+};
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[]>
+  res: NextApiResponse<Memes[]>
 ) {
   // refactor to axios
   console.log("HI");
